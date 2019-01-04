@@ -11,7 +11,7 @@ capture.encoder1_delay = 100 # ... same
 capture.start()
 
 for _ in range(1000):
-    print capture.timer, capture.encoder0_values, capture.encoder1_values
+    print(capture.timer, capture.encoder0_values, capture.encoder1_values)
 
 capture.stop()
 capture.wait()
