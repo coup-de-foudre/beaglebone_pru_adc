@@ -10,4 +10,5 @@ def ndarray_to_bytes(array: np.ndarray) -> bytes:
     return bio.getvalue()
 
 def bytes_to_ndarray(b: bytes) -> np.ndarray:
-    return np.load(b)
+    bio = io.BytesIO(b)
+    return np.load(bio)
