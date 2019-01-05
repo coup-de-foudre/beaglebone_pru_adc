@@ -1,7 +1,11 @@
+import time
+
 import jsonschema
 
+import oscope
+
 # Schema doc for the trace metadata
-trace_schema = {
+TRACE_SCHEMA = {
     "type": "object",
     "properties" : {
         "samples" : {
@@ -21,7 +25,7 @@ trace_schema = {
 }
 
 
-device_schema = {
+DEVICE_SCHEMA = {
     "type": "object",
     "properties" : {
         "name" : {
@@ -44,11 +48,11 @@ device_schema = {
     "required": ["name", "id", "session", "time"]
 }
 
-trace_schema = {
+MESSAGE_SCHEMA = {
     "type" : "object",
     "properties" : {
-        "device": device_schema,
-        "trace": trace_schema,
+        "device": DEVICE_SCHEMA,
+        "trace": TRACE_SCHEMA,
         "sequence": {"type": "number"}
     },
     "required": ["device", "trace", "sequence"]
@@ -56,7 +60,16 @@ trace_schema = {
 
 def validate_trace_metadata(trace: dict):
     """
-    Raise a validation error if the trace metadata is not
+    Raise a `jsonschema.ValidationError` if the trace metadata is not
     properly formed.
     """
-    jsonschema.validate(trace, trace_schema)
+    jsonschema.validate(trace, MESSAGE_SCHEMA)
+
+
+def get_device_meta(name: str, id: str):
+    return {
+        "name": name,
+        "id": id,
+        "session": oscope.__session__,
+        "time": time.time(),
+    }

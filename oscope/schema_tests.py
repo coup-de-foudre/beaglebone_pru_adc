@@ -1,5 +1,6 @@
 import pytest
 import jsonschema
+import pytest
 
 import oscope.schema as schema
 
@@ -24,3 +25,7 @@ def test_validator_success():
         "sequence": 0
     }
     schema.validate_trace_metadata(valid)
+
+def test_get_device_meta():
+    meta = schema.get_device_meta("foo", "bar")
+    jsonschema.validate(meta, schema.DEVICE_SCHEMA)
