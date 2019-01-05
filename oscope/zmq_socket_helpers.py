@@ -1,4 +1,5 @@
 import tempfile
+import time
 import os
 
 import zmq
@@ -70,7 +71,7 @@ class PublishContext:
         self._ctx = None
     
     def __enter__(self):
-        self._ctx = zmq.Context()
+        self._ctx = zmq.Context.instance()
         self._socket = self._ctx.socket(zmq.PUB)
         for b in self._binds:
             self._socket.bind(b)
@@ -85,6 +86,44 @@ class PublishContext:
         if self._ctx is not None:
             self._ctx.term()
             self._ctx = None
+
+
+class LinkedPubSubPair():
+    def __init__(self):
+        self._ctx = None
+        self._pub = None
+        self._sub = None
+
+    def __enter__(self):
+        self._ipc_temp = IPCTemp(["pubsub-pair"])
+        address = self._ipc_temp.__enter__()[0]
+
+        self._ctx = zmq.Context.instance()
+        self._pub = self._ctx.socket(zmq.PUB)
+        self._pub.bind(address)
+        
+        self._sub = self._ctx.socket(zmq.SUB)
+        self._sub.connect(address)
+        self._sub.subscribe("")
+        time.sleep(0.2) # Let the subscribe round-trip
+
+        return self._pub, self._sub
+
+    def __exit__(self, *args):
+        if self._pub is not None:
+            self._pub.close(linger=0)
+            self._pub = None
+        
+        if self._sub is not None:
+            self._sub.close(linger=0)
+            self._sub = None
+
+        if self._ctx is not None:
+            self._ctx.term()
+            self._ctx = None
+
+        self._ipc_temp.__exit__(*args)
+
 
 class TestPublishContext(PublishContext):
     def __init__(self, binds):

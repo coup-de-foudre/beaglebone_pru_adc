@@ -16,3 +16,11 @@ def test_ipc_temp_unique():
             unique_names.update(paths2)
             
             assert len(unique_names) == 2, unique_names
+
+def test_linked_pair():
+    with socket_helpers.LinkedPubSubPair() as (pub, sub):
+        for x in range(30):
+            msg = "foo-" + str(x)
+            pub.send_pyobj(msg)
+            assert sub.poll(timeout=1000)
+            assert sub.recv_pyobj() == msg
