@@ -1,6 +1,16 @@
 import zmq
 
 class PublishContext:
+    """
+    This is a context helper that creates and cleans up
+    ZMQ Publish socket instances.
+
+    >>> with socket as PublishContext(["ipc://endpoint"]):
+    ...    pass
+    ...    # Do stuff with socket
+
+    """
+
     def __init__(self, binds: list):
         for element in binds:
             assert isinstance(element, str)
