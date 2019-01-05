@@ -16,12 +16,8 @@ TRACE_SCHEMA = {
             "type" : "number",
             "description" : "The frequency in Hertz of sampling"    
         },
-        "channel": {
-            "type": "number",
-            "description": "The integer channel on this device."
-        },
     },
-    "required": ["samples", "frequency", "channel"]
+    "required": ["samples", "frequency"]
 }
 
 
@@ -59,7 +55,7 @@ MESSAGE_SCHEMA = {
 }
 
 
-def validate_trace_metadata(trace: dict):
+def validate_message_metadata(trace: dict):
     """
     Raise a `jsonschema.ValidationError` if the trace metadata is not
     properly formed.
@@ -74,3 +70,6 @@ def get_device_meta(name: str, id: str):
         "session": oscope.__session__,
         "time": time.time(),
     }
+
+def get_trace_meta(samples: int, frequency: float) -> dict:
+    return dict(samples=samples, frequency=frequency)
