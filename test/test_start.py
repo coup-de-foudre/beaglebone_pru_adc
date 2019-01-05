@@ -17,17 +17,17 @@ capture.stop()
 
 for off in range(0, 0x81, 4):
 	read_back = struct.unpack("L", pru0_mem[off:off+4])[0]
-	print hex(off), ':', hex(read_back)
+	print(hex(off), ':', hex(read_back))
 
-print 'timer:', capture.timer
-print 'ema_pow:', capture.ema_pow
-print 'values:', capture.values
-print 'enc pins:', capture.encoder0_pin, capture.encoder1_pin
-print 'encoder0_values:', capture.encoder0_values
-print 'encoder1_values:', capture.encoder1_values
+print('timer:', capture.timer)
+print('ema_pow:', capture.ema_pow)
+print('values:', capture.values)
+print('enc pins:', capture.encoder0_pin, capture.encoder1_pin)
+print('encoder0_values:', capture.encoder0_values)
+print('encoder1_values:', capture.encoder1_values)
 
-print 'encoder0_threshold:', capture.encoder0_threshold
-print 'encoder1_threshold:', capture.encoder1_threshold
+print('encoder0_threshold:', capture.encoder0_threshold)
+print('encoder1_threshold:', capture.encoder1_threshold)
 
 capture.wait()
 
