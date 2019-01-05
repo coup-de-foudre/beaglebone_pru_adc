@@ -3,10 +3,21 @@ import time
 
 import numpy as np
 
+import oscope.schema
+
 
 class AbstractOscilloscope(object):
     def __init__(self, name: str=None):
         self.name = name
+
+    def get_name(self):
+        if self.name is None:
+            return self.__class__.__name__
+        else:
+            return self.name
+
+    def get_trace_meta(samples: int, frequency: float) -> dict:
+        return dict(samples=samples, frequency=frequency)
 
     def is_ready(self) -> bool:
         raise NotImplementedError()

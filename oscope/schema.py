@@ -63,13 +63,10 @@ def validate_message_metadata(trace: dict):
     jsonschema.validate(trace, MESSAGE_SCHEMA)
 
 
-def get_device_meta(name: str, id: str):
+def get_sender_meta(name: str, id: str):
     return {
         "name": name,
         "id": id,
         "session": oscope.__session__,
         "time": time.time(),
     }
-
-def get_trace_meta(samples: int, frequency: float) -> dict:
-    return dict(samples=samples, frequency=frequency)
