@@ -4,29 +4,32 @@ import time
 import numpy as np
 
 
-class AbstractOscilloscope():
-    def is_channel_ready(self, channel: int) -> bool:
+class AbstractOscilloscope(object):
+    def __init__(self, name: str=None):
+        self.name = name
+
+    def is_ready(self) -> bool:
         raise NotImplementedError()
 
-    def read_channel(self, channel: int) -> np.ndarray:
+    def read(self) -> np.ndarray:
         raise NotImplementedError()
 
-    def get_channel_sample_rate(self, channel: int) -> float:
+    def get_sample_rate(self) -> float:
         raise NotImplementedError()
 
-    def get_channel_sample_count(self, channel: int) -> float:
+    def get_sample_count(self) -> int:
         raise NotImplementedError()
 
-    def block_on_channel_ready(self, channel: int, timeout: datetime.timedelta):
-        if self.is_channel_ready(channel):
+    # The above methods must be implemented by the subclass
+
+    def block_on_ready(self, timeout: datetime.timedelta):
+        if self.is_ready():
             return
 
         done_dt = datetime.datetime.now() + timeout
         while datetime.datetime.now() < done_dt:
             time.sleep(0.001)
-            if self.is_channel_ready(channel):
+            if self.is_ready():
                 return
         
-        error_message = "Channel {} did not become ready in {} seconds".format(
-            channel, timeout.total_seconds())
-        raise TimeoutError(error_message)
+        raise TimeoutError("Did not become ready in {} seconds".format(timeout.total_seconds()))

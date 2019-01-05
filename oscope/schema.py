@@ -4,7 +4,7 @@ import jsonschema
 
 import oscope
 
-# Schema doc for the trace metadata
+
 TRACE_SCHEMA = {
     "type": "object",
     "properties" : {
@@ -57,6 +57,7 @@ MESSAGE_SCHEMA = {
     },
     "required": ["device", "trace", "sequence"]
 }
+
 
 def validate_trace_metadata(trace: dict):
     """
