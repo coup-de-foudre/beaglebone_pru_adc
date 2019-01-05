@@ -31,7 +31,9 @@ is a measure of wheel speed).
 and store the result in memory for subsequent analysis. This is useful for researching analog input shape and tuning
 smoothing parameters and Schmitt filter threshold.
 
-4. User can configure `cap_delay` parameter to run at lower capture speed than the maximum. Capture delay introduces some delay at every capture cycle resulting in speed slowdown. This allows one to configure ADC capture frequency.
+4. User can configure `cap_delay` parameter to run at lower capture speed than the maximum.
+Capture delay introduces some delay at every capture cycle resulting in speed slowdown.
+This allows one to configure ADC capture frequency.
 
 ## Installation
 
@@ -50,31 +52,31 @@ Target system: arm-angstrom-linux-gnueabi
 ```
 
 1. Install pre-requisites:
-	```bash
-	opkg update && opkg install python-pip python-setuptools python-smbus
-	```
+    ```bash
+    opkg update && opkg install python-pip python-setuptools python-smbus
+    ```
 
 2. Clone GIT repository
-	```bash
-	git clone https://github.com/pgmmpk/beaglebone_pru_adc.git
-	```
-	
-	Note: if GIT refuses to clone, this might help (warning: disabling GIT SSL verification may pose a security risk)
-	```bash
-	git config --global http.sslVerify false
-	```
+    ```bash
+    git clone https://github.com/pgmmpk/beaglebone_pru_adc.git
+    ```
+    
+    Note: if GIT refuses to clone, this might help (warning: disabling GIT SSL verification may pose a security risk)
+    ```bash
+    git config --global http.sslVerify false
+    ```
 
 3. Build and install python package
-	```bash
-	cd beaglebone_pru_adc
+    ```bash
+    cd beaglebone_pru_adc
 
-	python setup.py install
-	```
+    python setup.py install
+    ```
 
 4. See it working
-	```bash
-	python examples/basic.py
-	```
+    ```bash
+    python examples/basic.py
+    ```
 
 ## Basic usage
 
@@ -87,7 +89,7 @@ capture = adc.Capture()
 capture.start()
 
 for _ in range(1000):
-	print capture.timer, capture.values
+    print capture.timer, capture.values
 
 capture.stop()
 capture.wait()
@@ -126,7 +128,7 @@ capture.encoder1_delay = 100 # ... same
 capture.start()
 
 for _ in range(1000):
-	print capture.timer, capture.encoder0_values, capture.encoder1_values
+    print capture.timer, capture.encoder0_values, capture.encoder1_values
 
 capture.stop()
 capture.wait()
@@ -149,10 +151,10 @@ capture.oscilloscope_init(adc.OFF_VALUES, numsamples) # captures AIN0 - the firs
 capture.start()
 
 for _ in range(10):
-	if capture.oscilloscope_is_complete():
-		break
-	print '.'
-	time.sleep(0.1)
+    if capture.oscilloscope_is_complete():
+        break
+    print '.'
+    time.sleep(0.1)
 
 capture.stop()
 capture.wait()
@@ -160,8 +162,8 @@ capture.wait()
 print 'Saving oscilloscope values to "data.csv"'
 
 with open('data.csv', 'w') as f:
-	for x in capture.oscilloscope_data(numsamples):
-		f.write(str(x) + '\n')
+    for x in capture.oscilloscope_data(numsamples):
+        f.write(str(x) + '\n')
 
 print 'done'
 
@@ -198,7 +200,7 @@ capture.encoder1_threshold=4096
 
 capture.start()
 
-print 'Now you have 10 seconds to rotate each wheel...'
+print('Now you have 10 seconds to rotate each wheel...')
 time.sleep(10)
 
 capture.stop()
@@ -209,11 +211,11 @@ _, min1, max1, _, _ = capture.encoder1_values
 
 capture.close()
 
-print 'Range for the Encoder0:', min0, '-', max0
-print 'Recommended threshold value for encoder 0 is:', int(0.9*(max0-min0))
+print('Range for the Encoder0:', min0, '-', max0)
+print('Recommended threshold value for encoder 0 is:', int(0.9*(max0-min0)))
 
-print 'Range for the Encoder1:', min1, '-', max1
-print 'Recommended threshold value for encoder 1 is:', int(0.9*(max1-min1))``` 
+print('Range for the Encoder1:', min1, '-', max1)
+print('Recommended threshold value for encoder 1 is:', int(0.9*(max1-min1)))
 ```
 ## Choosing encoder delay
 
@@ -317,7 +319,7 @@ Read-only property that returns a 5-tuple describing the state of the encoder. V
 * `ticks` is the number of encoder ticks seen since the start of the driver. Ticks are counted on the falling edge of the signal.
    This value can also be retrieved with a helper property `encoder0_ticks`, `encoder1_ticks`. 
 * `speed` is the width of the last encoder tick in `timer` units. Its inverse provides a measure of speed.
-	This value can also be retrieved with `encoder0_speed`, `encoder1_speed`
+    This value can also be retrieved with `encoder0_speed`, `encoder1_speed`
 
 ### Capture.encoder0_ticks, Capture.encoder1_ticks
 Read-only property that returns number of ticks registered for the corresponding encoder.
@@ -346,18 +348,18 @@ out to a memory buffer. The content of this buffer can later be analyzed (e.g. w
 Parameters:
 
 * `offset` - offset into local memory where the value of interest is located. Some important offsets are:
-	* `OFF_VALUES` - offset to the beginning of AIN values array. Use `OFF_VALUES` to examine AIN0, `OFF_VALUES+4` to examine
-		AIN1, etc.
-	* `OFF_ENC0_VALUES` - offset to the beginning of encoder0 values. Use `OFF_ENC0_VALUES` to examine raw value of encoder0,
-		use `OFF_ENC0_VALUES+4` to examine `max` variable of encoder0, etc.
-	* `OFF_ENC1_VALUES` - offset to the beginning of encoder1 values.
-	
-	For the complete list of local memory variables and their offset values see
-	[src/firmware.h](https://github.com/pgmmpk/beaglebone_pru_adc/blob/master/src/firmware.h) and 
-	[src/README.md](https://github.com/pgmmpk/beaglebone_pru_adc/blob/master/src/README.md).
+    * `OFF_VALUES` - offset to the beginning of AIN values array. Use `OFF_VALUES` to examine AIN0, `OFF_VALUES+4` to examine
+        AIN1, etc.
+    * `OFF_ENC0_VALUES` - offset to the beginning of encoder0 values. Use `OFF_ENC0_VALUES` to examine raw value of encoder0,
+        use `OFF_ENC0_VALUES+4` to examine `max` variable of encoder0, etc.
+    * `OFF_ENC1_VALUES` - offset to the beginning of encoder1 values.
+    
+    For the complete list of local memory variables and their offset values see
+    [src/firmware.h](https://github.com/pgmmpk/beaglebone_pru_adc/blob/master/src/firmware.h) and 
+    [src/README.md](https://github.com/pgmmpk/beaglebone_pru_adc/blob/master/src/README.md).
 
 * `numsamples` - number of samples to record. This is limited by the size of the DDR memory allocated to the `uio_pruss` device driver. It
-	is typically 0x40000, which allows recording of up to 64K oscilloscope values. This amounts to about 0.5 sec in time units.
+    is typically 0x40000, which allows recording of up to 64K oscilloscope values. This amounts to about 0.5 sec in time units.
 
 ### Capture.oscilloscope_is_complete()
 Returns `True` if capture was finished (i.e. the required number of samples was recorded and is ready for retrieval).
