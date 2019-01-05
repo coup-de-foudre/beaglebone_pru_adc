@@ -16,8 +16,8 @@ class AbstractOscilloscope(object):
         else:
             return self.name
 
-    def get_trace_meta(samples: int, frequency: float) -> dict:
-        return dict(samples=samples, frequency=frequency)
+    def get_trace_meta(self) -> dict:
+        return dict(samples=self.get_sample_count(), frequency=self.get_sample_rate())
 
     def is_ready(self) -> bool:
         raise NotImplementedError()
@@ -34,13 +34,12 @@ class AbstractOscilloscope(object):
     # The above methods must be implemented by the subclass
 
     def block_on_ready(self, timeout: datetime.timedelta):
-        if self.is_ready():
-            return
-
         done_dt = datetime.datetime.now() + timeout
-        while datetime.datetime.now() < done_dt:
-            time.sleep(0.001)
+        while True:
             if self.is_ready():
                 return
-        
+            time.sleep(0.001)
+            if datetime.datetime.now() > done_dt:
+                break
+
         raise TimeoutError("Did not become ready in {} seconds".format(timeout.total_seconds()))

@@ -120,8 +120,3 @@ class LinkedPubSubPair():
             self._ctx = None
 
         self._ipc_temp.__exit__(*args)
-
-
-class TestPublishContext(PublishContext):
-    def __init__(self, binds):
-        self.sanity_check_bind_list(binds)

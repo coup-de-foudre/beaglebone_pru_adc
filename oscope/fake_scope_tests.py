@@ -5,10 +5,10 @@ import oscope.fake_scope as fake_scope
 def test_getters():
     scope = fake_scope.FakeOscilloscope()
 
-    scope.get_channel_sample_count(1)
-    scope.get_channel_sample_rate(1)
+    scope.get_sample_count()
+    scope.get_sample_rate()
 
-    scope.is_channel_ready(1)
+    scope.is_ready()
 
-    array = scope.read_channel(1)
+    array = scope.read()
     assert array.dtype == np.float64, array.dtype

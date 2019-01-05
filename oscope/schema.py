@@ -47,11 +47,11 @@ SENDER_SCHEMA = {
 MESSAGE_SCHEMA = {
     "type" : "object",
     "properties" : {
-        "device": SENDER_SCHEMA,
+        "sender": SENDER_SCHEMA,
         "trace": TRACE_SCHEMA,
         "sequence": {"type": "number"}
     },
-    "required": ["device", "trace", "sequence"]
+    "required": ["sender", "trace", "sequence"]
 }
 
 

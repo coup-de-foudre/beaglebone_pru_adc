@@ -3,14 +3,14 @@ import numpy as np
 import oscope.abstract_scope as abstract_scope
 
 class FakeOscilloscope(abstract_scope.AbstractOscilloscope):
-    def get_channel_sample_count(self, channel: int) -> int:
+    def get_sample_count(self) -> int:
         return 1000
     
-    def get_channel_sample_rate(self, channel: int) -> float:
+    def get_sample_rate(self) -> float:
         return 100000.0
     
-    def is_channel_ready(self, channel: int) -> bool:
+    def is_ready(self) -> bool:
         return True
     
-    def read_channel(self, channel: int) -> np.ndarray:
-        return np.arange(self.get_channel_sample_count(channel), dtype=np.float64)
+    def read(self) -> np.ndarray:
+        return np.arange(self.get_sample_count(), dtype=np.float64)

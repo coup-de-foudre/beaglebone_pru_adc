@@ -6,7 +6,7 @@ import oscope.schema as schema
 
 
 VALID_METADATA = {
-        "device": {
+        "sender": {
             "id": "foo",
             "name": "bar",
             "session": "baz",
