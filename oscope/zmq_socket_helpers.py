@@ -6,9 +6,8 @@ class PublishContext:
     ZMQ Publish socket instances.
 
     >>> with socket as PublishContext(["ipc://endpoint"]):
-    ...    pass
     ...    # Do stuff with socket
-
+    ... # Socket and context cleaned up w/o hassle
     """
 
     def __init__(self, binds: list):
