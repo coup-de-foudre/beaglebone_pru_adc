@@ -35,6 +35,6 @@ with init_capture(2000, 2000, 200) as c:
 			enc0_speed = 10000. / c.encoder0_speed
 			enc1_speed = 10000. / c.encoder1_speed
 
-			print '%8d[%4.2lf] %8d[%4.2lf]' % (enc0_ticks, enc0_speed, enc1_ticks, enc1_speed)
+			print('%8d[%4.2lf] %8d[%4.2lf]' % (enc0_ticks, enc0_speed, enc1_ticks, enc1_speed))
 
 		time.sleep(0.001)

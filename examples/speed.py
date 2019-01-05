@@ -1,9 +1,9 @@
 import beaglebone_pru_adc as adc
 import time
 
-print 'Will start capture, keep it running for 10 seconds, then get timer value'
-print 'This is used to compute the capture speed (time value of one timer unit)'
-print 'Please wait...'
+print('Will start capture, keep it running for 10 seconds, then get timer value')
+print('This is used to compute the capture speed (time value of one timer unit)')
+print('Please wait...')
 
 capture = adc.Capture()
 
@@ -23,5 +23,5 @@ capture.stop()
 capture.wait()
 capture.close()
 
-print 'Capture runs at %d readings per second' % (timer // 10)
-print 'Time value of one timer unit is %d nanosec' % (1000000000 // timer)
+print('Capture runs at %d readings per second' % (timer // 10))
+print('Time value of one timer unit is %d nanosec' % (1000000000 // timer))

@@ -5,7 +5,7 @@ capture = adc.Capture()
 capture.start()
 
 for _ in range(1000):
-    print capture.timer, capture.values
+    print(capture.timer, capture.values)
 
 capture.stop() # ask driver to stop
 capture.wait() # wait for graceful exit

@@ -12,18 +12,18 @@ capture.start()
 for _ in range(10):
     if capture.oscilloscope_is_complete():
         break
-    print '.'
+    print('.')
     time.sleep(0.1)
 
 capture.stop()
 capture.wait()
 
-print 'Saving oscilloscope values to "data.csv"'
+print('Saving oscilloscope values to "data.csv"')
 
 with open('data.csv', 'w') as f:
     for x in capture.oscilloscope_data(numsamples):
         f.write(str(x) + '\n')
 
-print 'done'
+print('Done')
 
 capture.close()

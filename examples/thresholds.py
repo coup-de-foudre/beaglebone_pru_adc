@@ -11,7 +11,7 @@ capture.encoder1_threshold=4096
 
 capture.start()
 
-print 'Now you have 10 seconds to rotate each wheel...'
+print('Now you have 10 seconds to rotate each wheel...')
 time.sleep(10)
 
 capture.stop()
@@ -22,8 +22,8 @@ _, min1, max1, _, _ = capture.encoder1_values
 
 capture.close()
 
-print 'Range for the Encoder0:', min0, '-', max0
-print 'Recommended threshold value for encoder 0 is:', int(0.9*(max0-min0))
+print('Range for the Encoder0:', min0, '-', max0)
+print('Recommended threshold value for encoder 0 is:', int(0.9*(max0-min0)))
 
-print 'Range for the Encoder1:', min1, '-', max1
-print 'Recommended threshold value for encoder 1 is:', int(0.9*(max1-min1))
+print('Range for the Encoder1:', min1, '-', max1)
+print('Recommended threshold value for encoder 1 is:', int(0.9*(max1-min1)))
