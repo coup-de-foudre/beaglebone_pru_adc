@@ -2,7 +2,7 @@ import datetime
 
 import pytest
 
-import oscope.abstract_scope as abs_scope
+import oscope.scope.abstract as abs_scope
 
 class BlockedScopeImpl(abs_scope.AbstractOscilloscope):
     def is_ready(self) -> bool:

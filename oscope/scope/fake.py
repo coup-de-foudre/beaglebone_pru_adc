@@ -1,6 +1,6 @@
 import numpy as np
 
-import oscope.abstract_scope as abstract_scope
+import oscope.scope.abstract as abstract_scope
 
 class FakeOscilloscope(abstract_scope.AbstractOscilloscope):
     def get_sample_count(self) -> int:

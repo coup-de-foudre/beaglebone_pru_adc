@@ -1,6 +1,6 @@
 import numpy as np
 
-import oscope.fake_scope as fake_scope
+import oscope.scope.fake as fake_scope
 
 def test_getters():
     scope = fake_scope.FakeOscilloscope()

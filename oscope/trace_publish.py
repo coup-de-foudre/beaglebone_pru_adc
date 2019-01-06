@@ -2,7 +2,7 @@ import datetime
 
 import zmq
 
-import oscope.abstract_scope as abs_scope
+import oscope.scope.abstract as abs_scope
 import oscope.schema as schema
 import oscope.trace
 

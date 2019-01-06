@@ -1,10 +1,10 @@
-import oscope.fake_scope
+import oscope.scope.fake
 import oscope.trace
 import oscope.trace_publish
 import oscope.zmq_socket_helpers as helpers
 
 def test_publishing():
-    fakescope = oscope.fake_scope.FakeOscilloscope()
+    fakescope = oscope.scope.fake.FakeOscilloscope()
 
     with helpers.LinkedPubSubPair() as (pub, sub):
         publisher = oscope.trace_publish.TracePublisher(pub, fakescope)
