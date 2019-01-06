@@ -12,7 +12,7 @@ class TracePublisher:
             scope: abs_scope.AbstractOscilloscope):
         self.pub = pub
         self.scope = scope
-        self.timeout = datetime.timedelta=datetime.timedelta(seconds=1)
+        self.timeout = datetime.timedelta(seconds=1)
         self.sequence = 0
 
     def _seq_get_inc(self):

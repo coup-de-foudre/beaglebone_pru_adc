@@ -13,11 +13,13 @@ class UnblockedScopeImpl(abs_scope.AbstractOscilloscope):
         return True
 
 def test_block_ready():
+    second = datetime.timedelta(seconds=1)
     with pytest.raises(TimeoutError):
-        BlockedScopeImpl().block_on_ready(datetime.timedelta(seconds=1))
+        BlockedScopeImpl().block_on_ready(second)
 
 def test_block_not_ready():
-    UnblockedScopeImpl().block_on_ready(datetime.timedelta(seconds=0.1))
+    short = datetime.timedelta(seconds=0.1)
+    UnblockedScopeImpl().block_on_ready(short)
 
 def test_get_name():
     assert BlockedScopeImpl().get_name() == "BlockedScopeImpl"
