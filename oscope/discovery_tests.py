@@ -37,3 +37,11 @@ def test_IPQuad_asserts():
 
     with pytest.raises(AssertionError):
         oscope.discovery.IPQuad.assert_octets_valid((1, 2, 3))
+
+def test_ip_enumerants():
+    quad = oscope.discovery.IPQuad((1, 2, 3, 4))
+
+    slash24 = quad.ips_in_24()
+
+    for x in range(256):
+        assert ("1.2.3.%s" % x) in slash24
