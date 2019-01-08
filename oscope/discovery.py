@@ -17,7 +17,7 @@ def get_ip_address(ifname: str) -> list:
 
 class IPQuad:
     def __init__(self, octets: list):
-        self.octets = self._assert_octets_valid(list(octets))
+        self.octets = self.assert_octets_valid(list(octets))
 
     def __str__(self):
         return self._fmt_octet(self.octets)
@@ -30,7 +30,8 @@ class IPQuad:
     def from_string(cls, input: str):
         cls(int(e) for e in input.split("."))
 
-    def _assert_octets_valid(self, octets: list):
+    @staticmethod
+    def assert_octets_valid(octets: list):
         assert len(octets) == 4, octets
         for ele in octets:
             assert isinstance(ele, int)

@@ -1,3 +1,5 @@
+import pytest
+
 import oscope.discovery
 
 def _assert_is_list_of_strings(thing):
@@ -25,3 +27,13 @@ def test_IPQuad_valid():
     assert ipq.octets == [1, 2, 3, 4]
 
     oscope.discovery.IPQuad.from_string("127.0.0.1")
+
+def test_IPQuad_asserts():
+    with pytest.raises(AssertionError):
+        oscope.discovery.IPQuad.assert_octets_valid((1, 2, 3, 256))
+
+    with pytest.raises(AssertionError):
+        oscope.discovery.IPQuad.assert_octets_valid((0, 2, 3, 256))
+
+    with pytest.raises(AssertionError):
+        oscope.discovery.IPQuad.assert_octets_valid((1, 2, 3))
